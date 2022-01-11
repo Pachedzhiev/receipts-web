@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Receipts</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg justify-content-between navbar-dark bg-dark">
+    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-between" id="navbarMenu">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="/admin_all_receipts" class="nav-link">Всички Рецепти</a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin_home" class="nav-link">Моите Рецепти</a>
+            </li>
+
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="/logout" class="nav-link">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div style="display: inline-block; margin: 20px;">
+    <div th:each="receipt,iStat: ${receipts}" style="display: inline-block">
+        <div class="card" style="width: 25rem; margin: 20px; background-color:aliceblue ">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${receipt.getName}"></h5>
+                <h6 class="card-subtitle mb-2 text-muted" th:text="${receipt.getIngredients}"></h6>
+                <p class="card-text" th:text="${receipt.getDescription}"></p>
+                <form method="post" th:action="@{/receipt/delete/{id}(id=${receipt.id})}">
+                    <button  class="btn btn-primary " style="width: 150px">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="card" style=" background-color:aliceblue; display: inline-block; width: 25rem; margin: 20px;">
+            <form th:action="@{/receipt/create}" th:method="post">
+                <div class="card-body">
+                    <h5 class="card-title">Добавяне на ястие</h5><br>
+                    <input class="form-control" name="name" placeholder="Име на ястие..."/><br>
+                    <input class="form-control" style="height:100px" name="ingredients" placeholder="Съставки..."/><br>
+                    <input class="form-control" style="height:300px" name="description" placeholder="Описание..."/><br>
+
+                    <button class="btn btn-primary " style="width: 150px">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
